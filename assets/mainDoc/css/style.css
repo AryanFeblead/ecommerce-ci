@@ -323,7 +323,7 @@
 
 /*** vesitable Start ***/
 .vesitable .vesitable-item {
-    height: 100%;
+    height: 75%;
     transition: 0.5s;
 }
 
@@ -453,7 +453,7 @@
 
 /*** Single Page Start ***/
 .pagination {
-    display: inline-block;
+    display: flex;
 }
   
 .pagination a {

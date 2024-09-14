@@ -1,3 +1,7 @@
+<script>
+    var baseUrl = "<?= base_url(); ?>";
+    var siteUrl = "<?= site_url(); ?>";
+</script>
 <!DOCTYPE html>
 <html lang="en">
 

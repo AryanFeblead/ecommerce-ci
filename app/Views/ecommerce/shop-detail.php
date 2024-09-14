@@ -1,14 +1,3 @@
-<?php
-
-require ('conn.php');
-session_start();
-
-if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
-	header("Location: ../login/dist/");
-	exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,27 +8,6 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -71,7 +39,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
         </div>
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="index.html" class="navbar-brand">
+                <a href="<?= site_url('fruitables') ?>" class="navbar-brand">
                     <h1 class="text-primary display-6">Fruitables</h1>
                 </a>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -80,30 +48,30 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
                 </button>
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="index.php" class="nav-item nav-link">Home</a>
-                        <a href="shop.php" class="nav-item nav-link">Shop</a>
+                        <a href="<?= site_url('fruitables') ?>" class="nav-item nav-link">Home</a>
+                        <a href="<?= site_url('shop') ?>" class="nav-item nav-link active">Shop</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                <a href="cart.php" class="dropdown-item">Cart</a>
-                                <a href="checkout.php" class="dropdown-item">Checkout</a>
+                                <a href="<?= site_url('cart') ?>" class="dropdown-item">Cart</a>
+                                <a href="<?= site_url('checkout') ?>" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="<?= site_url('contact') ?>" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="d-flex m-3 me-0">
                         <button
                             class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
                                 class="fas fa-search text-primary"></i></button>
-                        <a href="#" class="position-relative me-4 my-auto">
+                        <a href="<?= site_url('cart') ?>" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;"><?php echo isset($_SESSION['cart_item']) ? count($_SESSION['cart_item']) : 0; ?></span>
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
                         </a>
-                        <a href="#" class="my-auto">
-                            <i class="fas fa-user fa-2x"></i>
+                        <a href="<?= site_url('logout') ?>" class="my-auto">
+                            <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem;"></i>
                         </a>
                     </div>
                 </div>
@@ -152,50 +120,43 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
             <div class="row g-4 mb-5">
                 <div class="col-lg-8 col-xl-9">
                     <div class="row g-4">
-                        <?php 
-                                    $id = $_GET['id'];
-                                    $select = mysqli_query($conn, "SELECT * FROM prod_tbl where prod_id='$id'");
-                                if (mysqli_num_rows($select) > 0) {
-                                    while ($row = mysqli_fetch_assoc($select)) {
-                                        $show_data = '<div class="col-lg-6">
-                                <div class="border rounded">
-                                    <a href="#">
-                                        <img src="' . $row['prod_img'] . '" class="img-fluid rounded" alt="Image">
-                                    </a>
+                        <div class="col-lg-6">
+                            <div class="border rounded">
+                                <a href="#">
+                                    <img src="<?= base_url('assets/mainDoc/'. $product['prod_img']) ?>" class="img-fluid rounded" alt="Image">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4 class="fw-bold mb-3"><?= $product['prod_name']; ?></h4>
+                            <p class="mb-3">Category: <?= $product['prod_category']; ?></p>
+                            <h5 class="fw-bold mb-3"><?= $product['prod_price']; ?></h5>
+                            <div class="d-flex mb-4">
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
+                            <p class="mb-4">Suspendisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
+                            <div class="input-group quantity mb-5" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                        <h4 class="fw-bold mb-3">' . $row['prod_name'] . '</h4>
-                                <p class="mb-3">Category: ' . $row['prod_category'] . '</p>
-                                <h5 class="fw-bold mb-3">' . $row['prod_price'] . '</h5>
-                                <div class="d-flex mb-4">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                                <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
-                                <div class="input-group quantity mb-5" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a></div>';
-                                echo $show_data;
-                                    }
-                                }
-                                ?>
-
+                            <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                            </a>
+                        </div>
 
                         <div class="col-lg-12">
                             <nav>
@@ -437,17 +398,6 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])){
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
 
-
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
 </body>
 
 </html>

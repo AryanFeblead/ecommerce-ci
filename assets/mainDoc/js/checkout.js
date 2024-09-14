@@ -74,7 +74,7 @@ $(document).ready(function() {
             email = $("#email1").val();
             $.ajax({
                 type: "POST",
-                url: "./php/ajx.php",
+                url: baseUrl + "COD",
                 data: {
                     fname: fname,
                     lname: lname,
@@ -85,7 +85,6 @@ $(document).ready(function() {
                     payment: payment,
                     mobile: mobile,
                     email: email,
-                    actionName: "checkout",
                 },
                 success: function(data) {
                     $("#fname,#lname,#address,#city,#country,#postcode,#mobile,#email,#payment").hide();

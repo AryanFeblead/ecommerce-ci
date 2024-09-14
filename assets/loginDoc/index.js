@@ -1,10 +1,8 @@
 $(document).ready(function() {
     $("#val_email,#val_password,#val_role,#success,#notsuccess").hide();
-    console.log('sadasd');
 
     $("#login_form").on("submit", function(e) {
         e.preventDefault();
-        console.log("sfsdg");
         $("#val_email,#val_password,#val_role").hide();
         var isValid = true;
 
@@ -27,23 +25,21 @@ $(document).ready(function() {
             var formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "./function.php",
+                url: baseUrl + "login",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function(data) {
                     $("#val_email,#val_password,#val_role,#success,#notsuccess").hide();
-                    console.log("done");
-                    var data1 = JSON.parse(data);
-                    if (data1.status == "emp_error") {
+                    if (data.status == "emp_error") {
                         $("#val_email").show().css("color", "red").html("Invalid email");
                         $("#val_password").show().css("color", "red").html("Password Incorrect");
                     }
-                    if (data1.status == "emp_pass_error") {
+                    if (data.status == "emp_pass_error") {
                         $("#val_password").show().css("color", "red").html("Password Incorrect");
                     }
-                    if(data1.status == "success"){
-                        window.location.href = "../../fruitables";
+                    if(data.status == "success"){
+                        window.location.href = "fruitables";
                     }
                 },
                 error: function() {

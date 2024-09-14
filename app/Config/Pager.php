@@ -26,6 +26,21 @@ class Pager extends BaseConfig
         'default_head'   => 'CodeIgniter\Pager\Views\default_head',
     ];
 
+    public $pager = [
+        'aryan' => [
+            'first' => '&laquo; First',
+            'previous' => '&lsaquo; Previous',
+            'next' => 'Next &rsaquo;',
+            'last' => 'Last &raquo;',
+        ],
+        'patel' => [
+            'first' => '&laquo;',
+            'previous' => '&lsaquo;',
+            'next' => '&rsaquo;',
+            'last' => '&raquo;',
+        ],
+    ];
+
     /**
      * --------------------------------------------------------------------------
      * Items Per Page

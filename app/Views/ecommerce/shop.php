@@ -1,14 +1,3 @@
-<?php
-
-require('conn.php');
-session_start();
-
-if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
-    header("Location: ../login/dist/");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,38 +8,8 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-        rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Template Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <!-- DataTables JS -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <link href="css/style.css" rel="stylesheet">
-    <script src="./js/custome.js"></script>
-    <script src="./js/cart.js"></script>
 
 </head>
 
@@ -83,7 +42,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
         </div>
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="index.html" class="navbar-brand">
+                <a href="<?= site_url('fruitables') ?>" class="navbar-brand">
                     <h1 class="text-primary display-6">Fruitables</h1>
                 </a>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -92,29 +51,29 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                 </button>
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="index.php" class="nav-item nav-link">Home</a>
-                        <a href="shop.php" class="nav-item nav-link active">Shop</a>
+                        <a href="<?= site_url('fruitables') ?>" class="nav-item nav-link">Home</a>
+                        <a href="<?= site_url('shop') ?>" class="nav-item nav-link active">Shop</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                <a href="cart.php" class="dropdown-item">Cart</a>
-                                <a href="checkout.php" class="dropdown-item">Checkout</a>
+                                <a href="<?= site_url('cart') ?>" class="dropdown-item">Cart</a>
+                                <a href="<?= site_url('checkout') ?>" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="<?= site_url('contact') ?>" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="d-flex m-3 me-0">
                         <button
                             class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
                                 class="fas fa-search text-primary"></i></button>
-                        <a href="./cart.php" class="position-relative me-4 my-auto">
+                        <a href="<?= site_url('cart') ?>" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;"><?php echo isset($_SESSION['cart_item']) ? count($_SESSION['cart_item']) : 0; ?></span>
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
                         </a>
-                        <a href="logout.php" class="my-auto">
+                        <a href="<?= site_url('logout') ?>" class="my-auto">
                             <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem;"></i>
                         </a>
                     </div>
@@ -198,19 +157,19 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                                         <ul class="list-unstyled fruite-categorie">
                                             <li>
                                                 <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#" id="all_product_cat"><i
+                                                    <a href="" id="all_product_cat"><i
                                                             class="fas fa-apple-alt me-2"></i>All Products</a>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#" id="all_fruit_cat"><i
+                                                    <a href="" id="all_fruit_cat"><i
                                                             class="fas fa-apple-alt me-2"></i>Fruits</a>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#" id="all_vegetable_cat"><i
+                                                    <a href="" id="all_vegetable_cat"><i
                                                             class="fas fa-apple-alt me-2"></i>Vegetables</a>
                                                 </div>
                                             </li>
@@ -229,7 +188,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="position-relative">
-                                        <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                        <img src="<?= base_url('assets/mainDoc/img/banner-fruits.jpg') ?>" class="img-fluid w-100 rounded" alt="">
                                         <div class="position-absolute"
                                             style="top: 50%; right: 10px; transform: translateY(-50%);">
                                             <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
@@ -238,7 +197,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="position-relative">
-                                        <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                        <img src="<?= base_url('assets/mainDoc/img/banner-fruits.jpg') ?>" class="img-fluid w-100 rounded" alt="">
                                         <div class="position-absolute"
                                             style="top: 50%; right: 0px; transform: translateY(-50%);">
                                             <h3 class="text-primary fw-bold">Fresh <br> Vegetables <br> Banner</h3>
@@ -250,8 +209,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                         <div class="col-lg-9">
                             <div id="show-error" style="display:none;"></div>
                             <div id="search-result" style="display:none;">
-                                <div id="search-result1" class="row g-4 justify-content-center">
-                                </div>
+                                <div id="search-result1" class="row g-4 justify-content-center"></div>
                             </div>
                             <div class="alert alert-success" id="success" role="alert">
                                 This is a success alert—check it out!
@@ -260,47 +218,45 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                                 This is a danger alert—check it out!
                             </div>
                             <div id="all_prod" class="row g-4 justify-content-center">
-                                <?php
-
-                                $select = mysqli_query($conn, "SELECT * FROM prod_tbl LIMIT 6");
-                                if (mysqli_num_rows($select) > 0) {
-                                    while ($row = mysqli_fetch_assoc($select)) {
-                                        $fruit_display = ' <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <a href="shop-detail.php?id=' . $row['prod_id'] . '">
-                                                                                    <div class="rounded position-relative fruite-item">
-                                                                                        <div class="fruite-img">
-                                                                                            <img src="' . $row['prod_img'] . '" class="img-fluid w-100 rounded-top" alt="">
-                                                                                        </div>
-                                                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">' . $row['prod_category'] . '</div>
-                                                                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                                                            <h4>' . $row['prod_name'] . '</h4>
-                                                                                            <p class="text-dark">' . $row['prod_desc'] . '</p>
-                                                                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                                                <p class="text-dark fs-5 fw-bold mb-0">' . $row['prod_price'] . ' / kg</p>
-                                                                                                <a data-id="' . $row['prod_id'] . '" class="btn border border-secondary rounded-pill px-3 text-primary add_cart"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a></div>';
-                                        echo $fruit_display;
-                                    }
-                                }
-                                ?>
+                                <?php if (!empty($allproducts)): ?>
+                                    <?php foreach ($allproducts as $row): ?>
+                                        <div class="col-md-6 col-lg-6 col-xl-4">
+                                            <a href="<?= site_url('product/' . $row['prod_id']); ?>">
+                                                <div class="rounded position-relative fruite-item">
+                                                    <div class="fruite-img">
+                                                        <img src="<?= base_url('assets/mainDoc/' . $row['prod_img']) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                    </div>
+                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                                        <?= $row['prod_category']; ?>
+                                                    </div>
+                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                        <h4><?= $row['prod_name']; ?></h4>
+                                                        <p class="text-dark"><?= $row['prod_desc']; ?></p>
+                                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                                            <p class="text-dark fs-5 fw-bold mb-0"><?= $row['prod_price']; ?> / kg</p>
+                                                            <a data-id="<?= $row['prod_id']; ?>" class="btn border border-secondary rounded-pill px-3 text-primary add_cart">
+                                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p>No products available.</p>
+                                <?php endif; ?>
 
                                 <div class="col-12">
                                     <div class="pagination d-flex justify-content-center mt-5">
-                                        <a href="#" class="rounded">&laquo;</a>
-                                        <a href="#" class="active rounded">1</a>
-                                        <a href="#" class="rounded">2</a>
-                                        <a href="#" class="rounded">3</a>
-                                        <a href="#" class="rounded">4</a>
-                                        <a href="#" class="rounded">5</a>
-                                        <a href="#" class="rounded">6</a>
-                                        <a href="#" class="rounded">&raquo;</a>
+
+                                        <?= $pager->links('aryan'); ?>                                           
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -381,7 +337,7 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
                         <p>Email: Example@gmail.com</p>
                         <p>Phone: +0123 4567 8910</p>
                         <p>Payment Accepted</p>
-                        <img src="img/payment.png" class="img-fluid" alt="">
+                        <img src="<?= base_url('assets/mainDoc/img/payment.png') ?>" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
@@ -415,17 +371,6 @@ if (!isset($_SESSION['customer_id']) && !isset($_SESSION['access_token'])) {
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
 
-
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
 </body>
 
 </html>
